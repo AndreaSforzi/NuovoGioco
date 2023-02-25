@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerControls;
     [SerializeField] Camera playerCamera;
     [SerializeField] CharacterController controller;
-    [SerializeField] float speed = 1;
+    [SerializeField] float speed = 1; 
 
     float gravity = -30f;
 
@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     float xRotation = 0;
     float verticalMovement;
+
+
 
 
     private void Awake()
@@ -75,6 +77,8 @@ public class PlayerController : MonoBehaviour
     {
         horizontalMovement = playerControls.Navigation.Movement.ReadValue<Vector2>();
     }
+
+    
 
     private void OnEnable()
     {
