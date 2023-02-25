@@ -37,13 +37,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""215d54f0-8e56-4167-a162-1869094ce098"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""MouseLook"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ae42f8de-3231-4bd8-b649-899bb34ab134"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -104,12 +104,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""48822e33-b91f-494d-a800-407d84115266"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""b9af4462-d97d-4bb0-b394-dffc86b7c174"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""MouseLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +121,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // Navigation
         m_Navigation = asset.FindActionMap("Navigation", throwIfNotFound: true);
         m_Navigation_Movement = m_Navigation.FindAction("Movement", throwIfNotFound: true);
-        m_Navigation_Jump = m_Navigation.FindAction("Jump", throwIfNotFound: true);
+        m_Navigation_MouseLook = m_Navigation.FindAction("MouseLook", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,13 +182,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Navigation;
     private INavigationActions m_NavigationActionsCallbackInterface;
     private readonly InputAction m_Navigation_Movement;
-    private readonly InputAction m_Navigation_Jump;
+    private readonly InputAction m_Navigation_MouseLook;
     public struct NavigationActions
     {
         private @PlayerInput m_Wrapper;
         public NavigationActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Navigation_Movement;
-        public InputAction @Jump => m_Wrapper.m_Navigation_Jump;
+        public InputAction @MouseLook => m_Wrapper.m_Navigation_MouseLook;
         public InputActionMap Get() { return m_Wrapper.m_Navigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -201,9 +201,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnMovement;
-                @Jump.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnJump;
+                @MouseLook.started -= m_Wrapper.m_NavigationActionsCallbackInterface.OnMouseLook;
+                @MouseLook.performed -= m_Wrapper.m_NavigationActionsCallbackInterface.OnMouseLook;
+                @MouseLook.canceled -= m_Wrapper.m_NavigationActionsCallbackInterface.OnMouseLook;
             }
             m_Wrapper.m_NavigationActionsCallbackInterface = instance;
             if (instance != null)
@@ -211,9 +211,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @MouseLook.started += instance.OnMouseLook;
+                @MouseLook.performed += instance.OnMouseLook;
+                @MouseLook.canceled += instance.OnMouseLook;
             }
         }
     }
@@ -221,6 +221,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface INavigationActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnMouseLook(InputAction.CallbackContext context);
     }
 }
